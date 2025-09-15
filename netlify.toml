@@ -1,0 +1,22 @@
+[build]
+  # Since this is a static HTML site, no build command is needed
+  # Netlify will serve the files directly
+  publish = "."
+
+[[headers]]
+  # Enable CORS for all files
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+
+[[redirects]]
+  # Redirect root to index.html
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+# Optional: Enable form processing if you add forms later
+[build.environment]
+  NODE_VERSION = "18"

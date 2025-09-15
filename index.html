@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Job Matcher - AI-Powered Career Matching</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                <h1>Resume Job Matcher</h1>
+            </div>
+            <p class="tagline">AI-Powered Career Matching Platform</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-upload"></i> Upload Your Documents</h2>
+                    <p>Upload your resume and job description to get started with AI-powered matching analysis</p>
+                </div>
+
+                <div class="upload-grid">
+                    <!-- Resume Upload -->
+                    <div class="upload-card">
+                        <div class="upload-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>Your Resume</h3>
+                        <p>Upload your resume in PDF, DOC, or DOCX format</p>
+                        <div class="file-upload">
+                            <input type="file" id="resume-upload" accept=".pdf,.doc,.docx" hidden>
+                            <label for="resume-upload" class="upload-btn">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                Choose Resume File
+                            </label>
+                            <div class="file-info" id="resume-info"></div>
+                        </div>
+                    </div>
+
+                    <!-- Job Description Input -->
+                    <div class="upload-card job-input-card">
+                        <div class="upload-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h3>Job Description</h3>
+                        <p>Enter LinkedIn job URL or upload/paste job description</p>
+                        
+                        <!-- LinkedIn URL Input -->
+                        <div class="url-input-section">
+                            <div class="input-group">
+                                <input type="url" id="linkedin-url" placeholder="https://www.linkedin.com/jobs/view/..." class="url-input">
+                                <button id="fetch-job-btn" class="fetch-btn" disabled>
+                                    <i class="fas fa-download"></i>
+                                    Fetch Job
+                                </button>
+                            </div>
+                            <div class="url-status" id="url-status"></div>
+                        </div>
+
+                        <!-- Alternative: File Upload -->
+                        <div class="alternative-upload">
+                            <p class="or-divider">or</p>
+                            <div class="file-upload">
+                                <input type="file" id="job-upload" accept=".pdf,.doc,.docx,.txt" hidden>
+                                <label for="job-upload" class="upload-btn secondary">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    Upload Job File
+                                </label>
+                                <div class="file-info" id="job-info"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Description Text Input -->
+                <div class="text-input-section">
+                    <h3><i class="fas fa-edit"></i> Or Paste Job Description</h3>
+                    <textarea 
+                        id="job-description-text" 
+                        placeholder="Paste the job description here..."
+                        rows="8"
+                    ></textarea>
+                </div>
+
+                <!-- Analyze Button -->
+                <div class="analyze-section">
+                    <button id="analyze-btn" class="analyze-btn" disabled>
+                        <i class="fas fa-search"></i>
+                        Analyze & Match
+                    </button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="results-section" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Analysis Results</h2>
+                    <p>AI-powered matching analysis between your resume and job requirements</p>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Resume Analysis -->
+                    <div class="analysis-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-user"></i> Resume Analysis</h3>
+                        </div>
+                        <div class="analysis-content" id="resume-analysis">
+                            <div class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Analyzing resume...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Analysis -->
+                    <div class="analysis-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-briefcase"></i> Job Requirements</h3>
+                        </div>
+                        <div class="analysis-content" id="job-analysis">
+                            <div class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Analyzing job description...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Matching Score -->
+                    <div class="analysis-card match-score">
+                        <div class="card-header">
+                            <h3><i class="fas fa-percentage"></i> Match Score</h3>
+                        </div>
+                        <div class="score-display" id="match-score">
+                            <div class="score-circle">
+                                <span class="score-number">0%</span>
+                            </div>
+                            <div class="score-details">
+                                <div class="score-breakdown" id="score-breakdown"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations-section">
+                    <h3><i class="fas fa-lightbulb"></i> Recommendations</h3>
+                    <div class="recommendations-content" id="recommendations">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Generating recommendations...
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Resume Job Matcher. Built with AI for better career matching.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
