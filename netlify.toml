@@ -1,32 +1,36 @@
+# Netlify configuration for static HTML site
 [build]
-  # Since this is a static HTML site, no build command is needed
-  # Netlify will serve the files directly
+  # No build command needed for static HTML
   command = ""
+  # Publish the current directory (where index.html is located)
   publish = "."
+  # Base directory is the root
+  base = "."
 
+# Headers for CORS and security
 [[headers]]
-  # Enable CORS for all files
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type, Authorization"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
 
+# Redirects for SPA-like behavior
 [[redirects]]
-  # Redirect root to index.html
-  from = "/"
+  from = "/*"
   to = "/index.html"
   status = 200
 
-# Optional: Enable form processing if you add forms later
+# Environment variables
 [build.environment]
   NODE_VERSION = "18"
 
-# Explicitly disable framework detection
+# Processing settings for static files
 [build.processing]
   skip_processing = false
 
-# Ensure this is treated as a static site
 [build.processing.css]
   bundle = false
   minify = false
