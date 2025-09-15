@@ -1,6 +1,7 @@
 [build]
   # Since this is a static HTML site, no build command is needed
   # Netlify will serve the files directly
+  command = ""
   publish = "."
 
 [[headers]]
@@ -20,3 +21,19 @@
 # Optional: Enable form processing if you add forms later
 [build.environment]
   NODE_VERSION = "18"
+
+# Explicitly disable framework detection
+[build.processing]
+  skip_processing = false
+
+# Ensure this is treated as a static site
+[build.processing.css]
+  bundle = false
+  minify = false
+
+[build.processing.js]
+  bundle = false
+  minify = false
+
+[build.processing.html]
+  pretty_urls = true
